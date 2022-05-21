@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">my_test</string>
+    <string name="time">時間</string>
+    <string name="price">價格</string>
+    <string name="count">數量</string>
+</resources>
