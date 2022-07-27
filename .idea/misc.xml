@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/red_background.xml" value="0.21302083333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2682291666666667" />
+        <entry key="app/src/main/res/layout/item_profile_detail.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/item_tag_detail.xml" value="0.3757725587144623" />
         <entry key="app/src/main/res/layout/item_trade_detail.xml" value="0.25" />
       </map>
     </option>

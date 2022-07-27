@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.my_test.adapters.ProfileDetailRecyclerViewAdapter
 import com.example.my_test.adapters.TradeRecyclerViewAdapter
 import com.example.my_test.data.TradeResponse
 import com.example.my_test.databinding.ActivityMainBinding
+import com.example.my_test.viewmodels.ProfileViewModel
 import com.example.my_test.viewmodels.TradeViewModel
 import com.google.gson.Gson
 import okhttp3.*
@@ -15,8 +18,8 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel:TradeViewModel by viewModels()
-    private val adapter = TradeRecyclerViewAdapter(listOf())
+    private val viewModel: ProfileViewModel by viewModels()
+    private val adapter = ProfileDetailRecyclerViewAdapter(listOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,24 +31,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun dataObserve() {
-        viewModel.tradeData.observe(this,{
-            adapter.updateList(it.reversed().subList(0,40))
-            viewModel.connectWebSocket()
-        })
-        viewModel.socketTradeData.observe(this,{
-            val list = adapter.getDataList().reversed().toMutableList()
-            list.add(it)
-            adapter.updateList(list.reversed().subList(0,40))
-        })
+        viewModel.profileList.observe(this) {
+            adapter.updateList(it)
+        }
     }
+
+    private fun getApiData() {
+        viewModel.getProfileList()
+    }
+
 
     private fun setRecyclerView() {
         binding.recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         binding.recyclerView.adapter = adapter
-    }
-
-    private fun getApiData() {
-        viewModel.getTradeData()
     }
 }
