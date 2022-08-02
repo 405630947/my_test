@@ -1,5 +1,6 @@
 package com.example.my_test
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -46,6 +47,17 @@ class MainActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         binding.recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter.apply {
+            itemClick = {
+                goToDetail(it)
+            }
+        }
+    }
+
+    private fun goToDetail(data: String) {
+        val intent = Intent(this, UserDetailActivity::class.java).apply {
+            putExtra("login",data)
+        }
+        startActivity(intent)
     }
 }

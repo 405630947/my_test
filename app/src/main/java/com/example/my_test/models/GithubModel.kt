@@ -8,7 +8,7 @@ class GithubModel {
 
     private val client = OkHttpClient()
 
-    suspend fun getUserList(
+    suspend fun callApiData(
         request: Request,
         callBack: (isSuccess: Boolean, result: Response?) -> Unit
     ) {

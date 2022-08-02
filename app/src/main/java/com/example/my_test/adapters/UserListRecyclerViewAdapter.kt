@@ -12,6 +12,8 @@ import com.example.my_test.databinding.ItemGithubUserListBinding
 class UserListRecyclerViewAdapter(private var list: List<UserListResponse>) :
     RecyclerView.Adapter<UserListRecyclerViewAdapter.UserListViewHolder>() {
 
+    var itemClick: ((String) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
         val binding =
             ItemGithubUserListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -41,6 +43,11 @@ class UserListRecyclerViewAdapter(private var list: List<UserListResponse>) :
             }
             data.login.let {
                 binding.userLogin.text = "Login : $it"
+            }
+            binding.root.setOnClickListener {
+                data.login?.let {
+                    itemClick?.invoke(it)
+                }
             }
         }
 
